@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
-import Checkbox from '../../shared/Checkbox';
+import { useState } from "react";
+import { Checkbox } from "../../shared/Checkbox";
 
-function Features({ features, selectedFeatures = [], onFeatureChange }) {
-  const [currentFeatures, setCurrentFeatures] = useState(selectedFeatures)
+interface FeaturesProps {
+  features: string[];
+  selectedFeatures?: string[];
+  onFeatureChange: (features: string[]) => void;
+}
 
-  const handleFeatureChange = (feature) => {
+export function Features({
+  features,
+  selectedFeatures = [],
+  onFeatureChange,
+}: FeaturesProps) {
+  const [currentFeatures, setCurrentFeatures] = useState(selectedFeatures);
+
+  const handleFeatureChange = (feature: string) => {
     const updatedFeatures = currentFeatures.includes(feature)
       ? currentFeatures.filter((pref) => pref !== feature)
       : [...currentFeatures, feature];
@@ -33,5 +43,3 @@ function Features({ features, selectedFeatures = [], onFeatureChange }) {
     </div>
   );
 }
-
-export default Features;

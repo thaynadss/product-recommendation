@@ -1,16 +1,23 @@
 // Preferences.js
 
-import React, { useState } from 'react';
-import Checkbox from '../../shared/Checkbox';
+import { useState } from "react";
+import { Checkbox } from "../../shared/Checkbox";
 
-function Preferences({
+interface PreferencesProps {
+  preferences: string[];
+  selectedPreferences?: string[];
+  onPreferenceChange: (preferences: string[]) => void;
+}
+
+export function Preferences({
   preferences,
   selectedPreferences = [],
   onPreferenceChange,
-}) {
-  const [currentPreferences, setCurrentPreferences] = useState(selectedPreferences)
+}: PreferencesProps) {
+  const [currentPreferences, setCurrentPreferences] =
+    useState(selectedPreferences);
 
-  const handlePreferenceChange = (preference) => {
+  const handlePreferenceChange = (preference: string) => {
     const updatedPreferences = currentPreferences.includes(preference)
       ? currentPreferences.filter((pref) => pref !== preference)
       : [...currentPreferences, preference];
@@ -39,5 +46,3 @@ function Preferences({
     </div>
   );
 }
-
-export default Preferences;
