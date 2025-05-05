@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "../../shared/Checkbox";
 
-interface FeaturesProps {
+type FeaturesProps = {
   features: string[];
   selectedFeatures?: string[];
   onFeatureChange: (features: string[]) => void;

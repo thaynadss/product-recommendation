@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from "react";
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   children: ReactNode;
 }
 

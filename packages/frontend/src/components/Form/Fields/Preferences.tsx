@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Checkbox } from "../../shared/Checkbox";
 
-interface PreferencesProps {
+type PreferencesProps = {
   preferences: string[];
   selectedPreferences?: string[];
   onPreferenceChange: (preferences: string[]) => void;

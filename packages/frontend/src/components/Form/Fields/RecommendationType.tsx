@@ -1,6 +1,7 @@
 import { Checkbox } from "../../shared/Checkbox";
+import { RECOMMENDATION_TYPE } from "../../../constants/recommendationType";
 
-interface RecommendationTypeProps {
+type RecommendationTypeProps = {
   onRecommendationTypeChange: (type: string) => void;
 }
 
@@ -14,16 +15,16 @@ export function RecommendationType({
         <Checkbox
           type="radio"
           name="recommendationType"
-          value="SingleProduct"
-          onChange={() => onRecommendationTypeChange("SingleProduct")}
+          value={RECOMMENDATION_TYPE.SingleProduct}
+          onChange={() => onRecommendationTypeChange(RECOMMENDATION_TYPE.SingleProduct)}
         >
           Produto Único
         </Checkbox>
         <Checkbox
           type="radio"
           name="recommendationType"
-          value="MultipleProducts"
-          onChange={() => onRecommendationTypeChange("MultipleProducts")}
+          value={RECOMMENDATION_TYPE.MultipleProducts}
+          onChange={() => onRecommendationTypeChange(RECOMMENDATION_TYPE.MultipleProducts)}
         >
           Múltiplos Produtos
         </Checkbox>

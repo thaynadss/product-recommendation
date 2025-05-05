@@ -6,18 +6,18 @@ import { RecommendationList } from "./components/RecommendationList/Recommendati
 export function App() {
   const [recommendations, setRecommendations] = useState<Product[]>([]);
 
-  /**
-   * Dadas atualizações no formulário, necessário atualizar a lista de recomendações
-   */
+ const  handleRecommendations = (recommendations: Product[]) => {
+    setRecommendations(recommendations);
+  };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center py-12">
-      <h1 className="text-3xl font-bold mb-8">
+    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center py-8 md:py-12">
+      <h1 className="text-xl md:text-3xl font-bold mb-8 text-center px-12 md:px-0">
         Recomendador de Produtos RD Station
       </h1>
-      <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 flex flex-col md:grid md:grid-cols-2 gap-8">
         <div className="col-span-2 mb-4">
-          <p className="text-lg">
+          <p className="text-md md:text-lg">
             Bem-vindo ao Recomendador de Produtos RD Station. Aqui você pode
             encontrar uma variedade de produtos da RD Station, cada um projetado
             para atender às necessidades específicas do seu negócio. De CRM a
@@ -29,7 +29,7 @@ export function App() {
           </p>
         </div>
         <div>
-          <Form />
+          <Form onRecommendationsChange={handleRecommendations} />
         </div>
         <div>
           <RecommendationList recommendations={recommendations} />

@@ -1,13 +1,17 @@
-// Form.js
-
-import { FormEvent, useEffect } from "react";
 import { SubmitButton } from "./SubmitButton";
 import { useForm } from "../../hooks/useForm";
+import { Product } from "../../types/product.type";
 import { useProducts } from "../../hooks/useProducts";
+import { FormEvent, useEffect, useState } from "react";
 import { useRecommendations } from "../../hooks/useRecommendations";
 import { Preferences, Features, RecommendationType } from "./Fields";
 
-export function Form() {
+type FormProps = {
+  onRecommendationsChange: (recommendations: Product[]) => void;
+}
+
+export function Form({ onRecommendationsChange }: FormProps) {
+  const [disabled, setDisabled] = useState(true);
   const { preferences, features, products } = useProducts();
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
@@ -15,20 +19,29 @@ export function Form() {
     selectedRecommendationType: "",
   });
 
-  const { getRecommendations, recommendations } = useRecommendations(products);
+  const { getRecommendations } = useRecommendations(products);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const dataRecommendations = getRecommendations(formData);
 
-    /**
-     * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
-     */
+    onRecommendationsChange(dataRecommendations);
   };
+
+  useEffect(() => {
+    const { selectedPreferences, selectedFeatures, selectedRecommendationType } = formData;
+
+    if ((!!selectedPreferences?.length || !!selectedFeatures?.length) && selectedRecommendationType) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [formData]);
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
+      className="max-w-md md:mx-auto md:p-4 bg-white rounded-lg shadow-d"
       onSubmit={handleSubmit}
     >
       <Preferences
@@ -48,7 +61,7 @@ export function Form() {
           handleChange("selectedRecommendationType", selected)
         }
       />
-      <SubmitButton text="Obter recomendação" />
+      <SubmitButton text="Obter recomendação" disabled={disabled} />
     </form>
   );
 }
