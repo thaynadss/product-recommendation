@@ -1,86 +1,78 @@
-// import { getRecommendations } from "./recommendation.service";
-// import { mockProducts } from "../mocks/mockProducts";
+import { FormData } from "../types/form.type";
+import { mockProducts } from "../mocks/mockProducts";
+import { getRecommendations } from "./recommendation.service";
 
-// describe("getRecommendations", () => {
-//   test("Retorna recomendação correta para SingleProduct com base nas preferências selecionadas", () => {
-//     const formData = {
-//       selectedPreferences: ["Integração com chatbots"],
-//       selectedFeatures: ["Chat ao vivo e mensagens automatizadas"],
-//       selectedRecommendationType: "SingleProduct",
-//     };
+describe("getRecommendations", () => {
+  const sut = (formData: FormData) =>
+    getRecommendations({
+      ...formData,
+      products: mockProducts,
+    });
 
-//     const recommendations = getRecommendations({
-//       ...formData,
-//       products: mockProducts,
-//     });
+  it("should return the correct recommendation for SingleProduct based on selected preferences", () => {
+    const formData = {
+      selectedPreferences: ["Integração com chatbots"],
+      selectedFeatures: ["Chat ao vivo e mensagens automatizadas"],
+      selectedRecommendationType: "SingleProduct",
+    };
+    const recommendations = sut(formData);
 
-//     expect(recommendations).toHaveLength(1);
-//     expect(recommendations[0].name).toBe("RD Conversas");
-//   });
+    expect(recommendations).toHaveLength(1);
+    expect(recommendations[0].name).toBe("RD Conversas");
+  });
 
-//   test("Retorna recomendações corretas para MultipleProducts com base nas preferências selecionadas", () => {
-//     const formData = {
-//       selectedPreferences: [
-//         "Integração fácil com ferramentas de e-mail",
-//         "Personalização de funis de vendas",
-//         "Automação de marketing",
-//       ],
-//       selectedFeatures: [
-//         "Rastreamento de interações com clientes",
-//         "Rastreamento de comportamento do usuário",
-//       ],
-//       selectedRecommendationType: "MultipleProducts",
-//     };
+  it("should return the correct recommendation for MultipleProduct based on selected preferences", () => {
+    const formData = {
+      selectedPreferences: [
+        "Integração fácil com ferramentas de e-mail",
+        "Personalização de funis de vendas",
+        "Automação de marketing",
+      ],
+      selectedFeatures: [
+        "Rastreamento de interações com clientes",
+        "Rastreamento de comportamento do usuário",
+      ],
+      selectedRecommendationType: "MultipleProducts",
+    };
+    const recommendations = sut(formData);
 
-//     const recommendations = getRecommendations({
-//       ...formData,
-//       products: mockProducts,
-//     });
+    expect(recommendations).toHaveLength(2);
+    expect(recommendations.map((product) => product.name)).toEqual([
+      "RD Station CRM",
+      "RD Station Marketing",
+    ]);
+  });
 
-//     expect(recommendations).toHaveLength(2);
-//     expect(recommendations.map((product) => product.name)).toEqual([
-//       "RD Station CRM",
-//       "RD Station Marketing",
-//     ]);
-//   });
+  it("should return only one product for SingleProduct with more than one matching product", () => {
+    const formData = {
+      selectedPreferences: [
+        "Integração fácil com ferramentas de e-mail",
+        "Automação de marketing",
+      ],
+      selectedFeatures: [
+        "Rastreamento de interações com clientes",
+        "Rastreamento de comportamento do usuário",
+      ],
+      selectedRecommendationType: "SingleProduct",
+    };
+    const recommendations = sut(formData);
 
-//   test("Retorna apenas um produto para SingleProduct com mais de um produto de match", () => {
-//     const formData = {
-//       selectedPreferences: [
-//         "Integração fácil com ferramentas de e-mail",
-//         "Automação de marketing",
-//       ],
-//       selectedFeatures: [
-//         "Rastreamento de interações com clientes",
-//         "Rastreamento de comportamento do usuário",
-//       ],
-//       selectedRecommendationType: "SingleProduct",
-//     };
+    expect(recommendations).toHaveLength(1);
+    expect(recommendations[0].name).toBe("RD Station Marketing");
+  });
 
-//     const recommendations = getRecommendations({
-//       ...formData,
-//       products: mockProducts,
-//     });
+  it("should return the last match in case of a tie for SingleProduct", () => {
+    const formData = {
+      selectedPreferences: [
+        "Automação de marketing",
+        "Integração com chatbots",
+      ],
+      selectedRecommendationType: "SingleProduct",
+      selectedFeatures: [],
+    };
+    const recommendations = sut(formData);
 
-//     expect(recommendations).toHaveLength(1);
-//     expect(recommendations[0].name).toBe("RD Station Marketing");
-//   });
-
-//   test("Retorna o último match em caso de empate para SingleProduct", () => {
-//     const formData = {
-//       selectedPreferences: [
-//         "Automação de marketing",
-//         "Integração com chatbots",
-//       ],
-//       selectedRecommendationType: "SingleProduct",
-//     };
-
-//     const recommendations = getRecommendations({
-//       ...formData,
-//       products: mockProducts,
-//     });
-
-//     expect(recommendations).toHaveLength(1);
-//     expect(recommendations[0].name).toBe("RD Conversas");
-//   });
-// });
+    expect(recommendations).toHaveLength(1);
+    expect(recommendations[0].name).toBe("RD Conversas");
+  });
+});
