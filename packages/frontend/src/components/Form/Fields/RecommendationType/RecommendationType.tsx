@@ -1,9 +1,7 @@
-import { Checkbox } from "../../shared/Checkbox";
-import { RECOMMENDATION_TYPE } from "../../../constants/recommendationType";
+import { Checkbox } from "@components/shared/Checkbox";
+import { RecommendationTypeProps } from "./RecommendationType.types";
+import { RECOMMENDATION_TYPE } from "@constants/recommendationType.constant";
 
-type RecommendationTypeProps = {
-  onRecommendationTypeChange: (type: string) => void;
-}
 
 export function RecommendationType({
   onRecommendationTypeChange,

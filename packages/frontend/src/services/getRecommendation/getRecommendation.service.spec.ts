@@ -1,6 +1,6 @@
-import { FormData } from "../types/form.type";
-import { mockProducts } from "../mocks/mockProducts";
-import { getRecommendations } from "./recommendation.service";
+import { FormData, Product } from "@types";
+import { mockProducts } from "@mocks/mockProducts";
+import { getRecommendations } from "./getRecommendation.service";
 
 describe("getRecommendations", () => {
   const sut = (formData: FormData) =>
@@ -37,7 +37,7 @@ describe("getRecommendations", () => {
     const recommendations = sut(formData);
 
     expect(recommendations).toHaveLength(2);
-    expect(recommendations.map((product) => product.name)).toEqual([
+    expect(recommendations.map((product: Product) => product.name)).toEqual([
       "RD Station CRM",
       "RD Station Marketing",
     ]);

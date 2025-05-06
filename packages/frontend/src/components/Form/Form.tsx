@@ -1,14 +1,10 @@
+import { useForm } from "@hooks/useForm";
+import { FormProps } from "./Form.types";
 import { SubmitButton } from "./SubmitButton";
-import { useForm } from "../../hooks/useForm";
-import { Product } from "../../types/product.type";
-import { useProducts } from "../../hooks/useProducts";
+import { useProducts } from "@hooks/useProducts";
 import { FormEvent, useEffect, useState } from "react";
-import { useRecommendations } from "../../hooks/useRecommendations";
+import { useRecommendations } from "@hooks/useRecommendations";
 import { Preferences, Features, RecommendationType } from "./Fields";
-
-type FormProps = {
-  onRecommendationsChange: (recommendations: Product[]) => void;
-}
 
 export function Form({ onRecommendationsChange }: FormProps) {
   const [disabled, setDisabled] = useState(true);
@@ -42,6 +38,7 @@ export function Form({ onRecommendationsChange }: FormProps) {
   return (
     <form
       className="max-w-md md:mx-auto md:p-4 bg-white rounded-lg shadow-d"
+      data-testid="recommendation-form"
       onSubmit={handleSubmit}
     >
       <Preferences

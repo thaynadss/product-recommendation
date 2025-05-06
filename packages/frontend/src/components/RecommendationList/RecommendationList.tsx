@@ -1,6 +1,6 @@
-import { Product } from "../../types/product.type";
+import { RecommendationListProps } from "./RecommendationList.types";
 
-export function RecommendationList({ recommendations }: { recommendations?: Product[] }) {
+export function RecommendationList({ recommendations }: RecommendationListProps) {
   return (
     <div>
       <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>

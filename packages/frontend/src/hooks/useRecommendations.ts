@@ -1,22 +1,12 @@
 import { useState } from "react";
-import { FormData } from "../types/form.type";
-import { Product } from "../types/product.type";
-import { RECOMMENDATION_TYPE } from "../constants/recommendationType";
-import { getRecommendations as recommendationService } from "../services/recommendation.service";
+import { FormData, Product } from "@types";
+import { getRecommendations as recommendationService } from "@services/getRecommendation/getRecommendation.service";
 
 export const useRecommendations = (products: Product[]) => {
   const [recommendations, setRecommendations] = useState<Product[]>([]);
 
-  const getRecommendations = ({
-    selectedRecommendationType,
-    ...props
-  }: FormData) => {
-    const data = recommendationService({ ...props, products });
-
-    const recommendations =
-      selectedRecommendationType === RECOMMENDATION_TYPE.SingleProduct
-        ? [data[data.length - 1]]
-        : data;
+  const getRecommendations = (props: FormData) => {
+    const recommendations = recommendationService({ ...props, products });
 
     setRecommendations(recommendations);
     return recommendations;

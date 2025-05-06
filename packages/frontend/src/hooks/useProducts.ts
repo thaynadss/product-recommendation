@@ -1,6 +1,6 @@
+import { Product } from "@types";
 import { useEffect, useState } from "react";
-import { Product } from "../types/product.type";
-import { getProducts } from "../services/product.service";
+import { getProducts } from "@services/getProducts/getProducts.service";
 
 export const useProducts = () => {
   const [preferences, setPreferences] = useState<string[]>([]);

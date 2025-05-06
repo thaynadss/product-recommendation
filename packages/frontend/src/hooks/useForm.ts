@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormData } from "../types/form.type";
+import { FormData } from "@types";
 
 export const useForm = (initialState: FormData) => {
   const [formData, setFormData] = useState(initialState);

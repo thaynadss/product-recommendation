@@ -1,8 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from "react";
-
-type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
-  children: ReactNode;
-}
+import { CheckboxProps } from "./Checkbox.types";
 
 export function Checkbox({ children, ...props }: CheckboxProps) {
   return (

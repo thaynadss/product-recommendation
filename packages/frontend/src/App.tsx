@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form } from "./components/Form/Form";
-import { Product } from "./types/product.type";
+import { Product } from "./types/product.types";
 import { RecommendationList } from "./components/RecommendationList/RecommendationList";
 
 export function App() {

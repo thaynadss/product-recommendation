@@ -1,14 +1,11 @@
-import { FormData } from "../types/form.type";
-import { Product } from "../types/product.type";
-
-type GetRecommendationProps = Omit<FormData, "selectedRecommendationType"> & {
-  products: Product[];
-};
+import { GetRecommendationProps } from "./getRecommendation.types";
+import { RECOMMENDATION_TYPE } from "@constants/recommendationType.constant";
 
 export const getRecommendations = ({
   products,
   selectedFeatures,
   selectedPreferences,
+  selectedRecommendationType,
 }: GetRecommendationProps) => {
   const recommendations = products.filter((product) => {
     const hasAnyFeature = selectedFeatures.some((feature) =>
@@ -20,6 +17,10 @@ export const getRecommendations = ({
 
     return hasAnyFeature || hasAnyPreference;
   });
+
+  if (selectedRecommendationType === RECOMMENDATION_TYPE.SingleProduct) {
+    return [recommendations[recommendations.length - 1]];
+  }
 
   return recommendations;
 };

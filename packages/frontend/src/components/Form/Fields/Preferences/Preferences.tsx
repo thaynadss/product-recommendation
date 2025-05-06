@@ -1,13 +1,6 @@
-// Preferences.js
-
 import { useState } from "react";
-import { Checkbox } from "../../shared/Checkbox";
-
-type PreferencesProps = {
-  preferences: string[];
-  selectedPreferences?: string[];
-  onPreferenceChange: (preferences: string[]) => void;
-}
+import { Checkbox } from "@components/shared/Checkbox";
+import { PreferencesProps } from "./Preferences.types";
 
 export function Preferences({
   preferences,

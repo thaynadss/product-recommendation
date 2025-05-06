@@ -1,11 +1,6 @@
 import { useState } from "react";
-import { Checkbox } from "../../shared/Checkbox";
-
-type FeaturesProps = {
-  features: string[];
-  selectedFeatures?: string[];
-  onFeatureChange: (features: string[]) => void;
-}
+import { FeaturesProps } from "./Features.types";
+import { Checkbox } from "@components/shared/Checkbox";
 
 export function Features({
   features,
